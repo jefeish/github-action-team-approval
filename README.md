@@ -1,0 +1,51 @@
+# GitHub Action Team Approval
+
+This GitHub Action checks if a specified number of reviewers from a designated team have approved a pull request. It triggers on pull request review events and utilizes GitHub checks to declare the action as "success" or "failed" based on the conditions.
+
+## Features
+
+- Triggers on pull request reviews.
+- Checks if reviewers are part of a specified team.
+- Verifies if the required number of approvals from that team has been met.
+- Declares the action as "success" or "failed" based on the approval conditions.
+
+## Usage
+
+1. **Setup the Action**: Create a workflow file in your repository under `.github/workflows/team-approval.yml`.
+
+2. **Configure the Action**: Use the following example to configure the action in your workflow:
+
+   ```yaml
+   name: Team Approval Check
+
+   on:
+     pull_request_review:
+       types: [submitted]
+
+   jobs:
+     approval-check:
+       runs-on: ubuntu-latest
+       steps:
+         - name: Check Team Approvals
+           uses: ./github-action-team-approval
+           with:
+             team-name: 'your-team-name'
+             required-approvals: 2
+   ```
+
+3. **Inputs**:
+   - `team-name`: The name of the team whose approvals are required.
+   - `required-approvals`: The minimum number of approvals needed from the specified team.
+
+## Requirements
+
+- Ensure that the GitHub Action has the necessary permissions to read pull request reviews and team memberships.
+- The action should be placed in a repository that has the specified team configured in GitHub.
+
+## License
+
+This project is licensed under the MIT License. See the LICENSE file for more details.
+
+## Contributing
+
+Contributions are welcome! Please open an issue or submit a pull request for any enhancements or bug fixes.

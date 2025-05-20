@@ -1,0 +1,39 @@
+name: Team Approval Check
+
+on:
+  pull_request_review:
+    types: [submitted]
+
+jobs:
+  check-approvals:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+
+      - name: Install dependencies
+        run: npm install
+        working-directory: ./src
+
+      - name: Run approval check
+        id: approval-check
+        run: node index.js
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TEAM_NAME: ${{ secrets.TEAM_NAME }}
+          REQUIRED_APPROVALS: ${{ secrets.REQUIRED_APPROVALS }}
+
+      - name: Set output based on approval check
+        run: |
+          if [ "${{ steps.approval-check.outputs.result }}" == "success" ]; then
+            echo "Approval check passed."
+          else
+            echo "Approval check failed."
+            exit 1
+          fi

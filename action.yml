@@ -1,0 +1,12 @@
+name: Team Approval Check
+description: A GitHub Action that checks if a specified team has approved a pull request.
+inputs:
+  team_name:
+    description: 'The name of the team whose approvals are required.'
+    required: true
+  required_approvals:
+    description: 'The number of approvals required from the specified team.'
+    required: true
+runs:
+  using: 'node12'
+  main: 'src/index.js'
