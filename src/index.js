@@ -18,7 +18,8 @@ const { getPullRequestReviews, getTeamMembers, checkApprovals } = require('./uti
 async function run() {
     // Import GitHub Actions context and Octokit client
     const context = require('@actions/github').context;
-    const github = require('@actions/github').getOctokit(process.env.GITHUB_TOKEN);
+    const token = core.getInput('token', { required: true });
+    const github = require('@actions/github').getOctokit(token);
 
     // Extract the pull request object from the event payload
     const { pull_request } = context.payload;
