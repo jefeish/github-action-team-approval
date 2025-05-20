@@ -31,9 +31,9 @@ async function run() {
     }
 
     // Read team name and required approvals from environment variables
-    const teamName = process.env.TEAM_NAME;
-    const requiredApprovals = parseInt(process.env.REQUIRED_APPROVALS, 10);
-
+    const teamName = core.getInput('team_name', { required: true });
+    const requiredApprovals = parseInt(core.getInput('required_approvals', { required: true }), 10);
+    
     // Fetch all reviews for the pull request
     const reviews = await getPullRequestReviews(github, context, pull_request.number);
 
