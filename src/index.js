@@ -12,7 +12,7 @@
  * - TEAM_NAME: The name of the GitHub team whose approvals are required.
  * - REQUIRED_APPROVALS: The minimum number of team member approvals required.
  */
-
+const core = require('@actions/core');
 const { getPullRequestReviews, getTeamMembers, checkApprovals } = require('./utils');
 
 async function run() {
