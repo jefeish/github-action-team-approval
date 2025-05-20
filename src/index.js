@@ -35,10 +35,10 @@ async function run() {
     const requiredApprovals = parseInt(process.env.REQUIRED_APPROVALS, 10);
 
     // Fetch all reviews for the pull request
-    const reviews = await getPullRequestReviews(github, pull_request.number);
+    const reviews = await getPullRequestReviews(github, context, pull_request.number);
 
     // Fetch all members of the specified team
-    const teamMembers = await getTeamMembers(github, teamName);
+    const teamMembers = await getTeamMembers(github, context, teamName);
 
     // Count the number of unique team members who have approved the PR
     const approvalCount = checkApprovals(reviews, teamMembers);
