@@ -71,6 +71,28 @@ async function getTeamMembers(github, teamName) {
     return data.map(member => member.login);
 }
 
+/**
+ * Returns the number of unique team members who have approved the PR.
+ * @param {Array} reviews - Array of review objects from the GitHub API.
+ * @param {Array} teamMembers - Array of GitHub usernames who are members of the team.
+ * @returns {number} The count of unique team member approvals.
+ */
+function checkApprovals(reviews, teamMembers) {
+    // Map to store the latest review state for each user
+    const latestReviewByUser = new Map();
+    for (const review of reviews) {
+        if (teamMembers.includes(review.user.login)) {
+            latestReviewByUser.set(review.user.login, review.state);
+        }
+    }
+    // Count unique team members whose latest review is APPROVED
+    let count = 0;
+    for (const state of latestReviewByUser.values()) {
+        if (state === 'APPROVED') count++;
+    }
+    return count;
+}
+
 // filepath: /Users/jefeish/projects/github-action-team-approval/src/utils.js
 module.exports = {
     isReviewerInTeam,
