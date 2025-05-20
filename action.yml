@@ -7,6 +7,9 @@ inputs:
   required_approvals:
     description: 'The number of approvals required from the specified team.'
     required: true
+  token:
+    description: 'GitHub token for authentication.'
+    required: true
 runs:
   using: 'node12'
   main: 'src/index.js'
