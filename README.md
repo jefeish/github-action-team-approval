@@ -42,10 +42,30 @@ This GitHub Action checks if a specified number of reviewers from a designated t
 - Ensure that the GitHub Action has the necessary permissions to read pull request reviews and team memberships.
 - The action should be placed in a repository that has the specified team configured in GitHub.
 
+## Action Sequence Diagram
+
+```mermaid
+sequenceDiagram
+    participant Workflow
+    participant Action
+    participant GitHubAPI
+
+    Workflow->>Action: Trigger on pull_request_review
+    Action->>Action: Read inputs (token, team_name, required_approvals)
+    Action->>GitHubAPI: Fetch PR reviews (listReviews)
+    GitHubAPI-->>Action: Return PR reviews
+    Action->>GitHubAPI: Fetch team members (listMembersInOrg)
+    GitHubAPI-->>Action: Return team member list
+    Action->>Action: Count unique team member approvals
+    alt Enough approvals
+        Action->>Workflow: Log success, set PR status (success)
+    else Not enough approvals
+        Action->>Workflow: Log failure, set PR status (failure)
+    end
+```
+
+---
+
 ## License
 
 This project is licensed under the MIT License. See the LICENSE file for more details.
-
-## Contributing
-
-Contributions are welcome! Please open an issue or submit a pull request for any enhancements or bug fixes.
