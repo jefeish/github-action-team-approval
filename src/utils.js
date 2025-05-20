@@ -42,8 +42,41 @@ function checkApprovalStatus(requiredApprovals, actualApprovals) {
     return actualApprovals >= requiredApprovals;
 }
 
+/**
+ * Fetches all reviews for a pull request.
+ * @param {object} github - The Octokit GitHub client.
+ * @param {number} prNumber - The pull request number.
+ * @returns {Promise<Array>} Array of review objects.
+ */
+async function getPullRequestReviews(github, prNumber) {
+    const { data } = await github.rest.pulls.listReviews({
+        owner: github.context.repo.owner,
+        repo: github.context.repo.repo,
+        pull_number: prNumber,
+    });
+    return data;
+}
+
+/**
+ * Fetches all members of a specified team.
+ * @param {object} github - The Octokit GitHub client.
+ * @param {string} teamName - The name of the team.
+ * @returns {Promise<Array>} Array of usernames.
+ */
+async function getTeamMembers(github, teamName) {
+    const { data } = await github.rest.teams.listMembersInOrg({
+        org: github.context.repo.owner,
+        team_slug: teamName,
+    });
+    return data.map(member => member.login);
+}
+
+// filepath: /Users/jefeish/projects/github-action-team-approval/src/utils.js
 module.exports = {
     isReviewerInTeam,
     countApprovals,
-    checkApprovalStatus
+    checkApprovalStatus,
+    getPullRequestReviews,
+    getTeamMembers,
+    checkApprovals
 };
