@@ -7,8 +7,8 @@
     "test": "echo \"No tests specified\" && exit 0"
   },
   "dependencies": {
-    "@actions/core": "^1.10.0",
-    "@actions/github": "^5.0.0"
+    "@actions/core": "^1.11.1",
+    "@actions/github": "^5.1.1"
   },
   "devDependencies": {
     "eslint": "^8.0.0"
@@ -20,5 +20,13 @@
     "approval"
   ],
   "author": "",
-  "license": "MIT"
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jefeish/github-action-team-approval.git"
+  },
+  "bugs": {
+    "url": "https://github.com/jefeish/github-action-team-approval/issues"
+  },
+  "homepage": "https://github.com/jefeish/github-action-team-approval#readme"
 }
