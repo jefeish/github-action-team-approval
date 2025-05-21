@@ -80,8 +80,8 @@ graph LR
         A --> B{Approvals}
         
         subgraph "Required Approvers"
-            TeamB[TEAM-B<br>forge-xxx-Approver] -->|Min 2 approvals| B
-            TeamA[TEAM-A<br>forge-xxx-Developer] -->|Optional| B
+            TeamB[TEAM-A<br>Required-Approver] -->|Min 2 approvals| B
+            TeamA[TEAM-B<br>Developer] -->|Optional| B
         end
         
         B -->|Total: 3 approvals met| C[Approval Complete]
