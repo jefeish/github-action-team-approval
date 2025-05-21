@@ -48,20 +48,21 @@ async function run() {
         console.log(`Success: ${approvalCount} approvals from team ${teamName} met the requirement.`);
         // Note: The following API call does not set a check status; it attempts to update the PR state.
         // For proper check status, use the Checks API or set an output for a composite action.
-        await github.rest.pulls.update({
-            owner: context.repo.owner,
-            repo: context.repo.repo,
-            pull_number: pull_request.number,
-            state: 'success'
-        });
+        // await github.rest.pulls.update({
+        //     owner: context.repo.owner,
+        //     repo: context.repo.repo,
+        //     pull_number: pull_request.number,
+        //     state: 'success'
+        // });
     } else {
         console.log(`Failed: Only ${approvalCount} approvals from team ${teamName} received.`);
-        await github.rest.pulls.update({
-            owner: context.repo.owner,
-            repo: context.repo.repo,
-            pull_number: pull_request.number,
-            state: 'failure'
-        });
+        core.setFailed(`Only ${approvalCount} approvals from team ${teamName} received.`);
+        // await github.rest.pulls.update({
+        //     owner: context.repo.owner,
+        //     repo: context.repo.repo,
+        //     pull_number: pull_request.number,
+        //     state: 'failure'
+        // });
     }
 }
 
