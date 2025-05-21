@@ -11,7 +11,7 @@ This GitHub Action checks if a specified number of reviewers from a designated t
 - Triggers on pull request reviews.
 - Checks if reviewers are part of a specified team.
 - Verifies if the required number of approvals from that team has been met.
-- Declares the action as "success" or "failed" based on the approval conditions.
+- Declares the action as `"success"` or `"failed"` based on the approval conditions.
 
 ## Getting Started
 
@@ -66,7 +66,10 @@ This GitHub Action checks if a specified number of reviewers from a designated t
 
 ## How it Works!
 
-### Approval Logic (with Diagram)
+### Approval Logic
+
+This diagram illustrates the approval process enforced by the action: 
+- a pull request requires a minimum number of approvals from a specific team before it can be merged into a protected branch.
 
 ```mermaid
 graph LR
@@ -92,6 +95,8 @@ graph LR
     style B fill:#ff9,stroke:#333,stroke-width:2px
     style Merge fill:#9f9,stroke:#333,stroke-width:2px
 ```
+
+---
 
 ### Workflow Sequence Diagram
 
