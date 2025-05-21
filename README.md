@@ -49,6 +49,33 @@ This GitHub Action checks if a specified number of reviewers from a designated t
 - Ensure that the GitHub Action has the necessary permissions to read pull request reviews and team memberships.
 - The action should be placed in a repository that has the specified team configured in GitHub.
 
+## Approval Specs
+
+```mermaid
+graph LR
+    Repo[Repository] --> PR[Pull Request]
+    
+    subgraph "Approval Process"
+        PR --> A[Review Required]
+        A --> B{Approvals}
+        
+        subgraph "Required Approvers"
+            TeamB[TEAM-B<br>forge-xxx-Approver] -->|Min 2 approvals| B
+            TeamA[TEAM-A<br>forge-xxx-Developer] -->|Optional| B
+        end
+        
+        B -->|Total: 3 approvals met| C[Approval Complete]
+    end
+    
+    C --> Merge[Merge to Protected Branch]
+    
+    style PR fill: #f9f,stroke:#333,stroke-width:2px
+    style TeamA fill: #FF9933,stroke:#333,stroke-width:1px
+    style TeamB color: #fff, fill:#d55,stroke:#333,stroke-width:1px
+    style B fill:#ff9,stroke:#333,stroke-width:2px
+    style Merge fill:#9f9,stroke:#333,stroke-width:2px
+```
+
 ## Action Sequence Diagram
 
 ```mermaid
