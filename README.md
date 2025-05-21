@@ -21,16 +21,23 @@ This GitHub Action checks if a specified number of reviewers from a designated t
    on:
      pull_request_review:
        types: [submitted]
-
+       
+   permissions:
+     contents: read
+     pull-requests: read
+     issues: read
+   
    jobs:
      approval-check:
        runs-on: ubuntu-latest
        steps:
          - name: Check Team Approvals
-           uses: ./github-action-team-approval
+           uses: jefeish/github-action-team-approval@main
            with:
-             team-name: 'your-team-name'
-             required-approvals: 2
+             team_name: a-team
+             required_approvals: 1
+             token: ${{ secrets.GH_ADMIN_SECRET }}
+
    ```
 
 3. **Inputs**:
