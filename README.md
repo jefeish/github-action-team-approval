@@ -2,14 +2,20 @@
 
 This GitHub Action checks if a specified number of reviewers from a designated team have approved a pull request. It triggers on pull request review events and utilizes GitHub checks to declare the action as "success" or "failed" based on the conditions.
 
-## Features
+> **Note:**  
+> This action is designed to work in conjunction with [GitHub branch protection rules](https://docs.github.com/en/enterprise-cloud@latest/repositories/configuring-branches-and-merges-in-your-repository/managing-protected-branches/managing-a-branch-protection-rule) that require pull requests and enforce that "all required status checks pass" before merging.  
+> Make sure your protected branch has these rules enabled for this action to enforce team approvals effectively.
+
+## Key Features
 
 - Triggers on pull request reviews.
 - Checks if reviewers are part of a specified team.
 - Verifies if the required number of approvals from that team has been met.
 - Declares the action as "success" or "failed" based on the approval conditions.
 
-## Usage
+## Getting Started
+
+### Setup instructions
 
 1. **Setup the Action**: Create a workflow file in your repository under `.github/workflows/team-approval.yml`.
 
@@ -35,21 +41,32 @@ This GitHub Action checks if a specified number of reviewers from a designated t
            uses: jefeish/github-action-team-approval@main
            with:
              team_name: a-team
-             required_approvals: 1
+             required_approvals: 2
              token: ${{ secrets.GH_ADMIN_SECRET }}
 
    ```
 
-3. **Inputs**:
-   - `team-name`: The name of the team whose approvals are required.
-   - `required-approvals`: The minimum number of approvals needed from the specified team.
+### Inputs
 
-## Requirements
+| Name                | Description                                               | Required |
+|---------------------|-----------------------------------------------------------|----------|
+| `team_name`         | The name of the team whose approvals are required.         | Yes      |
+| `required_approvals`| The minimum number of approvals needed from the team.      | Yes      |
+| `token`             | GitHub token with access to read PRs and team membership.  | Yes      |
+
+## Prerequisites
 
 - Ensure that the GitHub Action has the necessary permissions to read pull request reviews and team memberships.
 - The action should be placed in a repository that has the specified team configured in GitHub.
+- **Branch protection rules are required:**  
+  This action only enforces approvals if your branch protection rules require pull requests and specify that "all required status checks must pass" before merging.  
+  Make sure to enable these rules on your protected branches for this action to have effect.
 
-## Approval Specs
+---
+
+## How it Works!
+
+### Approval Logic (with Diagram)
 
 ```mermaid
 graph LR
@@ -76,7 +93,7 @@ graph LR
     style Merge fill:#9f9,stroke:#333,stroke-width:2px
 ```
 
-## Action Sequence Diagram
+### Workflow Sequence Diagram
 
 ```mermaid
 sequenceDiagram
